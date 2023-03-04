@@ -1,13 +1,15 @@
 *{
     box-sizing: border-box;
-    font-family: 'Roboto', sans-serif;
-    font-size: 1.25rem;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
 html, body{
     width: 100%;
     height: 100%;
-    margin: 0;
+    min-width: 600px;
+    font-size: 1.15rem;
 }
 main{
     height: 100%;
@@ -16,30 +18,31 @@ main{
     align-items: center;
 }
 
-#task-list-container{
+#task-list-pane{
     width: 50%;
     height: 100%;
     background-color: rgb(240, 240, 240);
-    padding: 1rem 3rem;
+    padding-bottom: 2rem;
     box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+    color: rgba(0,0,0,0.80);
     overflow: auto;
 }
 #task-list-heading{
     font-size: 2.5rem;
-    color: rgba(0,0,0,0.80);
+    margin: 2rem 3rem 0;
 }
 #task-list-subheading{
     font-size: 1.2rem;
     font-weight: 600;
     color: rgba(0,0,0,0.60);
+    margin: 1rem 3.2rem 0;
 }
-#task-list-ul{
+#task-list-container{
     list-style: none;
-    padding: 0;
-    margin: 2rem 0 0;
+    margin: 1.5rem 0 0;
     width: 100%;
 }
-#task-list-ul li{
+#task-list-container li{
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -50,30 +53,45 @@ hr{
     width: 100%;
 }
 .task-text{
-    padding-left: 0.5rem;
-    margin: 0;
-    width: calc(100% - 1rem - 65px);
-    min-width: 100px;
+    margin: 0.5rem 0 0.5rem 3.5rem;
+    width: calc(100% - 8rem - 5rem);
     word-wrap: break-word;
     overflow: auto;
-    color: rgba(0,0,0,0.80);
+    color: rgba(0,0,0,1);
+}
+.task-edit-input{
+    border-radius: 0.25rem;
+    font-size: 1.2rem;
+    padding: 0.2rem 0.5rem;
+    background-color: rgba(255, 255, 255, 0.5);
 }
 .strike{
     text-decoration: line-through;
+    color: rgba(0,0,0,0.60);
 }
 .task-options{
+    margin: 0.5rem 3.5rem 0.5rem 1rem;
+    width: 5rem;
     display: flex;
     align-items: center;
-    padding-right: 0.5rem;
+    justify-content: space-evenly;
+    opacity: 0.7;
 }
-input[type=checkbox]{
-    width: 20px;
-    height: 20px;
-    border: 2px solid gray;
-    border-radius: 0;
-    margin-right: 15px;
+.task-options:hover{
+    opacity: 1;
+}
+.task-checkbox{
+    width: 1rem;
+    height: 1rem;
+    cursor: pointer;
+}
+.task-edit{
+    font-size: 0.9rem;
+    margin-right: 2px;
+    cursor: pointer;
 }
 .task-delete{
+    font-size: 1.3rem;
     cursor: pointer;
 }
 
@@ -83,18 +101,17 @@ input[type=checkbox]{
     width: 50%;
     padding: 50px;
 }
-textarea{
+#main-input{
     height: 100%;
     width: 100%;
-    border: none;
-    outline: none;
     font-size: 50px;
     font-weight: 600;
     padding: 20px;
-    display: flex;
-    align-items: center;
-    resize: none;
+    color: rgba(0,0,0,0.80);
 }
-input[type=submit]{
-    display: none;
+
+textarea{
+    resize: none;
+    border: none;
+    outline: none;
 }

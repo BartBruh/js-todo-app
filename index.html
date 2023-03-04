@@ -10,15 +10,18 @@
 </head>
 <body>
     <main>
-        <div id="task-list-container">
+        <div id="task-list-pane">
             <h1 id="task-list-heading">TASK LIST</h1>
             <p id="task-list-subheading">Add tasks to your list by typing to the right and pressing Enter. You may then view pending tasks below.</p>
         
-            <ul id="task-list-ul">
+            <ul id="task-list-container">
                 <!-- <li class="task-item">
-                    <p class="task-text">Sample Task 1</p>
+                    <p class="task-text">Sample Task 1 with long ass text because I need to test a few things with this textarea thingy</p>
                     <span class="task-options">
-                        <input type="checkbox" class="task-complete" onclick="strike_task(event)">
+                        <input type="checkbox" class="task-checkbox" onclick="strike_task(event)">
+                        <span class="task-edit" onclick="edit_task(event)">
+                            <i class="fa-solid fa-pen"></i>
+                        </span>
                         <span class="task-delete" onclick="delete_task(event)">
                             <i class="fa-solid fa-xmark"></i>
                         </span>
