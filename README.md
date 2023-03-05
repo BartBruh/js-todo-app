@@ -1,2 +1,2 @@
 # js-todo-app
- Basic To-Do App using HTML, CSS & vanilla JavaScript
+ Basic To-Do App using HTML, CSS, JavaScript & Browser Local Storage
