@@ -70,7 +70,7 @@ function display_todos() {
         task_list_item.appendChild(hr_break);
 
         // scroll to the newly added list item
-        task_list_item.scrollIntoView();
+        // task_list_item.scrollIntoView();
     });
 }
 
@@ -88,12 +88,14 @@ function edit_task(event, todo) {
     // creating textarea element for new input
     let task_edit_input = document.createElement("textarea");
     task_edit_input.classList.add("task-edit-input");
+    task_edit_input.rows = 1;
     task_edit_input.value = task_text_old_val;
     task_text.innerText = "";
     task_text.appendChild(task_edit_input);
     task_edit_input.focus();
     // setting height of task edit textarea element
     task_edit_input.style.height = task_edit_input.scrollHeight + "px";
+    task_edit_input.scrollIntoView(false);
 
     // adding event listeners to task edit textarea element
     task_edit_input.addEventListener("keydown", (event) => {
@@ -102,7 +104,7 @@ function edit_task(event, todo) {
             if (task_edit_input.value.trim() == "") delete_task(todo);
             else {
                 input_control_key_pressed = true;
-                todo.content = task_edit_input.value;
+                todo.content = task_edit_input.value.trim();
                 update_todos();
             }
         } else if (event.key == "Escape") {
@@ -113,13 +115,15 @@ function edit_task(event, todo) {
     })
     task_edit_input.addEventListener("blur", () => {
         if (!input_control_key_pressed) {
-            todo.content = task_edit_input.value;
+            todo.content = task_edit_input.value.trim();
             update_todos();
         }
     })
     // dynamically changing textarea height with text input
-    task_edit_input.addEventListener("input", () => {
+    task_edit_input.addEventListener("keyup", () => {
+        task_edit_input.style.height = "auto";
         task_edit_input.style.height = task_edit_input.scrollHeight + "px";
+        task_edit_input.scrollIntoView(false);
     })
 }
 
