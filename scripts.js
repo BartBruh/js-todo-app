@@ -3,6 +3,7 @@
 const task_list_ul = document.getElementById("task-list-container");
 const main_input = document.getElementById("main-input");
 
+var todos = JSON.parse(localStorage.getItem("todos")) || {};
 var input_control_key_pressed = false;
 
 function strike_task(event){
@@ -17,17 +18,14 @@ function edit_task(event){
     let task_text = task.querySelector(".task-text");
     let task_text_old_val = task_text.innerText;
 
-    // Creating a textarea element for new input
+    // Creating textarea element for new input
     let task_edit_input = document.createElement("textarea");
-    // setting the height and width of the textarea element
-    task_edit_input.style.height = task_text.scrollHeight + "px";
-    task_edit_input.style.width = "100%";
-    task_edit_input.style.maxWidth = "100%";
     task_edit_input.classList.add("task-edit-input");
     task_edit_input.value = task_text_old_val;
     task_text.innerText = "";
     task_text.appendChild(task_edit_input);
     task_edit_input.focus();
+    // setting height of textarea element
     task_edit_input.style.height = task_edit_input.scrollHeight + "px";
 
     // Adding event listeners to the input element
@@ -66,16 +64,21 @@ function add_task(){
         // task_list_ul.prepend(task_list_item);    // adds new task to the top
         task_list_ul.appendChild(task_list_item);
         
+        // Create task item main container
+        let task_item_main = document.createElement("span");
+        task_item_main.classList.add("task-item-main");
+        task_list_item.appendChild(task_item_main);
+
         // Create task text
         let task_text = document.createElement("p");
         task_text.classList.add("task-text");
         task_text.innerText = text;
-        task_list_item.appendChild(task_text);
+        task_item_main.appendChild(task_text);
         
         // Create task options container
         let task_options = document.createElement("span");
         task_options.classList.add("task-options");
-        task_list_item.appendChild(task_options);
+        task_item_main.appendChild(task_options);
         
         // Create task checkbox
         let task_checkbox = document.createElement("input");
@@ -85,7 +88,7 @@ function add_task(){
         task_options.appendChild(task_checkbox);
         
         // Create task edit button
-        let task_edit = document.createElement("span");
+        let task_edit = document.createElement("button");
         task_edit.classList.add("task-edit");
         task_edit.addEventListener("click", (event) => edit_task(event));
         task_options.appendChild(task_edit);
@@ -95,7 +98,7 @@ function add_task(){
         task_edit.appendChild(pen_mark);
         
         // Create task delete button
-        let task_delete = document.createElement("span");
+        let task_delete = document.createElement("button");
         task_delete.classList.add("task-delete");
         task_delete.addEventListener("click" ,(event) => delete_task(event));
         task_options.appendChild(task_delete);

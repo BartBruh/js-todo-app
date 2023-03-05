@@ -42,24 +42,28 @@ main{
     margin: 1.5rem 0 0;
     width: 100%;
 }
-#task-list-container li{
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    flex-wrap: wrap;
+.task-item{
     width: 100%;
 }
-hr{
+.task-item-main{
     width: 100%;
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 0.5rem 3.5rem;
 }
 .task-text{
-    margin: 0.5rem 0 0.5rem 3.5rem;
-    width: calc(100% - 8rem - 5rem);
+    width: calc(100% - 5.5rem);
+    flex-grow: 1;
+    min-width: 8rem;
     word-wrap: break-word;
     overflow: auto;
-    color: rgba(0,0,0,1);
+    color: rgba(0, 0, 0, 0.9);
 }
 .task-edit-input{
+    width: 100%;
+    max-width: 100%;
     border-radius: 0.25rem;
     font-size: 1.2rem;
     padding: 0.2rem 0.5rem;
@@ -67,15 +71,16 @@ hr{
 }
 .strike{
     text-decoration: line-through;
-    color: rgba(0,0,0,0.60);
+    color: rgba(0, 0, 0, 0.65);
 }
 .task-options{
-    margin: 0.5rem 3.5rem 0.5rem 1rem;
+    flex-shrink: 0;
+    margin: 0.5rem 0 0 0.5rem;
     width: 5rem;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    opacity: 0.7;
+    opacity: 0.65;
 }
 .task-options:hover{
     opacity: 1;
@@ -88,11 +93,16 @@ hr{
 .task-edit{
     font-size: 0.9rem;
     margin-right: 2px;
+    border: none;
     cursor: pointer;
 }
 .task-delete{
     font-size: 1.3rem;
+    border: none;
     cursor: pointer;
+}
+hr{
+    width: 100%;
 }
 
 
