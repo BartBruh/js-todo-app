@@ -1,5 +1,6 @@
 "use strict";
 
+const task_list_pane = document.getElementById("task-list-pane");
 const task_list_ul = document.getElementById("task-list-container");
 const main_input = document.getElementById("main-input");
 
@@ -8,7 +9,7 @@ var input_control_key_pressed = false;
 
 var add_new_todos_to_top = false;
 
-function display_todos() {
+function display_todos(task_added = false) {
     todos = JSON.parse(localStorage.getItem("todos")) || [];
     // clearing current task list
     task_list_ul.innerHTML = "";
@@ -69,8 +70,8 @@ function display_todos() {
         let hr_break = document.createElement("hr");
         task_list_item.appendChild(hr_break);
 
-        // scroll to the newly added list item
-        // task_list_item.scrollIntoView();
+        // scroll to the newly added list item if it is not the initial load
+        if (task_added) task_list_item.scrollIntoView();
     });
 }
 
@@ -93,9 +94,9 @@ function edit_task(event, todo) {
     task_text.innerText = "";
     task_text.appendChild(task_edit_input);
     task_edit_input.focus();
-    // setting height of task edit textarea element
+    // setting height of task edit textarea element and scrolling to it
     task_edit_input.style.height = task_edit_input.scrollHeight + "px";
-    task_edit_input.scrollIntoView(false);
+    scroll_to_task(task);
 
     // adding event listeners to task edit textarea element
     task_edit_input.addEventListener("keydown", (event) => {
@@ -115,15 +116,18 @@ function edit_task(event, todo) {
     })
     task_edit_input.addEventListener("blur", () => {
         if (!input_control_key_pressed) {
-            todo.content = task_edit_input.value.trim();
-            update_todos();
+            if (task_edit_input.value.trim() == "") delete_task(todo);
+            else {
+                todo.content = task_edit_input.value.trim();
+                update_todos();
+            }
         }
     })
     // dynamically changing textarea height with text input
     task_edit_input.addEventListener("keyup", () => {
         task_edit_input.style.height = "auto";
         task_edit_input.style.height = task_edit_input.scrollHeight + "px";
-        task_edit_input.scrollIntoView(false);
+        scroll_to_task(task);
     })
 }
 
@@ -143,12 +147,23 @@ function add_task() {
     }
     // clearing main input
     main_input.value = "";
-    update_todos();
+    update_todos(true);
 }
 
-function update_todos() {
+function update_todos(task_added = false) {
     localStorage.setItem("todos", JSON.stringify(todos));
-    display_todos()
+    display_todos(task_added)
+}
+
+function scroll_to_task(task) {
+    // scroll top of task into view if it is above visible area of task list pane
+    if (task_list_pane.scrollTop > task.offsetTop) {
+        task.scrollIntoView();
+    }
+    // scroll bottom of task into view if it is under visible area of task list pane
+    if (task_list_pane.scrollTop + task_list_pane.clientHeight < task.offsetTop + task.scrollHeight) {
+        task.scrollIntoView(false);
+    }
 }
 
 main_input.addEventListener("keydown", (event) => {
